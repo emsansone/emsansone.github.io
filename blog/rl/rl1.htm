@@ -95,12 +95,12 @@ MathJax.Hub.Config({
 
 <div class="navigation-wrapper">
 	<div class="site-name">
-		<a href="https://emsansone.github.io/blog/rl/rl0.htm">General</a>
+		<a href="https://emsansone.github.io/">Personal Website</a>
 	</div><!-- /.site-name -->
     <div class="top-navigation">
         <nav role="navigation" id="site-nav" class="nav">
 		    <ul>
-		        					    
+              <li><a href="https://emsansone.github.io/blog/rl/rl0.htm">Table of Contents</a></li>	        					    
 					    <li><a href="https://emsansone.github.io/blog/rl/rl2.htm" >Next Lecture</a></li>
 
 		    </ul>
@@ -130,7 +130,7 @@ MathJax.Hub.Config({
 
   <article class="page">
 
-    <div class="article-wrap" style="width:140%;text-align:justify;margin-right:1cm;">
+    <div class="article-wrap" style="width:140%;text-align:justify;">
     
       <h1 id="Introduction-to-Reinforcement-Learning">Introduction to Reinforcement Learning</h1>
       <p>Reinforcement Learning (RL) is a <strong>paradigm</strong> of learning from data (an area of machine learning).</p>
@@ -138,7 +138,7 @@ MathJax.Hub.Config({
       These two components <strong>interact</strong> iteratively over time. On one hand, the environment generates an <strong>observation</strong> 
       $O_t$ of its state and a <strong>reward</strong> $R_t$, given an action $A_{t-1}$ chosen by the agent. On the other hand, the agent receives 
       the observation and the reward from the environment and chooses a new <strong>action</strong> $A_t$. The following picture summarizes the RL paradigm.</p>
-      <p style="text-align:center;"><img src="./img/RLmodel.png" alt="Rl model" style="width:40%;height:40%;"></p>
+      <p style="text-align:center;margin-bottom:1cm;"><img src="./img/RLmodel.png" alt="Rl model" style="width:40%;height:40%;"></p>
       <p>RL is general enough to capture the notion of machine intelligence (see this <a href="https://arxiv.org/pdf/0712.3329.pdf">definition</a>). It 
         is more general than traditional <strong>supervised learning</strong>, as (i) the supervisory signal (i.e. the reward) is not directly linked to 
         the agent output, (ii) there is no i.i.d. data assumption and (iii) agent actions may affect subsequent data. Thanks to these properties, it is 
