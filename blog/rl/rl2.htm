@@ -138,12 +138,11 @@ MathJax.Hub.Config({
       
       <ul>
       <li>$S$ is a finite set of states </li>
-      <li>$P$ is the state transition probability matrix, namely
+      <li>$P$ is the state transition probability matrix, namely</li><br/>
         <span class="math display">\[P=\left[\begin{array}P(S_{t+1}=s_1|S_t=s_1) &amp; \dots &amp; P(S_{t+1}=s_n|S_t=s_1) \\
           \vdots &amp; &amp; \vdots \\
           P(S_{t+1}=s_1|S_t=s_n) &amp; \dots &amp; P(S_{t+1}=s_n|S_t=s_n)
           \end{array}\right]\]</span>
-      </li>
       </ul>
       </blockquote>
 
@@ -174,7 +173,7 @@ MathJax.Hub.Config({
       <p>Note that we always have a <strong>sequence of random variables</strong>, i.e. $\dots,S_t,R_{t+1},S_{t+1},R_{t+2},\dots$</p>
       <ol>
       <li>By sampling an infinite sequence of states/rewards</li>
-      <li>By using the <strong>Bellman equation</strong>, namely
+      <li>By using the <strong>Bellman equation</strong>, namely</li><br/>
         <span class="math display">\[\begin{align}v(s) &amp;= E\{G_t|S_t=s\} \\
           &amp;= E\{R_{t+1} + \gamma R_{t+2} + \dots|S_t=s\} \\
           &amp;= R_s + E\{\gamma R_{t+2} + \dots|S_t=s\} \text{ - by definition of conditional expectation} \\ 
@@ -182,7 +181,6 @@ MathJax.Hub.Config({
           &amp;= R_s + \gamma E\{G_{t+1}|S_t=s\} \\ 
           &amp;= R_s + \gamma \sum_{s&#39;}P_{ss&#39;}E\{G_{t+1}|S_{t+1}=s&#39;\} \\
           &amp;= R_s + \gamma \sum_{s&#39;}P_{ss&#39;}v(s&#39;)\end{align}\]</span>
-      </li>
       </ol>
       <p>Basically, we can rewrite it in matrix forms, namely $v=R+\gamma Pv$.</p>
 
@@ -212,11 +210,10 @@ MathJax.Hub.Config({
       <p>As before, we can compute the value functions</p>
       <ul>
       <li>by sampling infinite sequence</li>
-      <li>using <strong>Bellman Expectation Equations</strong>, namely:
+      <li>using <strong>Bellman Expectation Equations</strong>, namely:</li><br/>
         <span class="math display">\[\begin{align}v_\pi(s) &amp;= E_\pi\{G_t|S_t=s\} \\
           &amp;= \sum_{a}\pi(a|s)E_\pi\{G_t|S_t=s, A_t=a\} \text{ - by definition of conditional expectation}\\
           &amp;= \sum_{a}\pi(a|s)q_\pi(a,s)\end{align}\]</span>
-      </li>
       </ul>
       <p>$$\begin{align}q_\pi(a,s) &amp;= E_\pi\{G_t|S_t=s, A_t=a\} \\
                           &amp;= E_\pi\{R_{t+1} + \gamma R_{t+2} + \dots|S_t=s, A_t=a\} \\
@@ -225,16 +222,16 @@ MathJax.Hub.Config({
                           &amp;= R_s^a + \gamma E_\pi\{G_{t+1}|S_t=s, A_t=a\} \\ 
                           &amp;= R_s^a + \gamma \sum_{s'}P_{ss'}^aE_\pi\{G_{t+1}|S_{t+1}=s'\} \\
                           &amp;= R_s^a + \gamma \sum_{s'}P_{ss'}^av_\pi(s')\end{align}$$</p>
-      <p>Now, you can basically obtain the <strong>Bellman equation for the state-value function</strong>, namely:
-      $$v_\pi(s)=\sum_{a}\pi(a|s)\big(R_s^a + \gamma \sum_{s'}P_{ss'}^av_\pi(s')\big)$$
-      and also the <strong>Bellman equation for the action-value function</strong>, namely:
-      $$q_\pi(a,s)=R_s^a + \gamma \sum_{s'}P_{ss'}^a\big(\sum_{a'}\pi(a'|s')q_\pi(a',s')\big)$$</p>
-      <p>The state-value function can be rewritten in the following way:
+      <p>Now, you can basically obtain the <strong>Bellman equation for the state-value function</strong>, namely:</p>
+      $$v_\pi(s)=\sum_{a}\pi(a|s)\big(R_s^a + \gamma \sum_{s'}P_{ss'}^av_\pi(s')\big)$$<br/>
+      and also the <strong>Bellman equation for the action-value function</strong>, namely:</p>
+      $$q_\pi(a,s)=R_s^a + \gamma \sum_{s'}P_{ss'}^a\big(\sum_{a'}\pi(a'|s')q_\pi(a',s')\big)$$<br/>
+      <p>The state-value function can be rewritten in the following way:</p>
       $$\begin{align}v_\pi(s)&amp;=\sum_{a}\pi(a|s)\big(R_s^a + \gamma \sum_{s'}P_{ss'}^av_\pi(s')\big) \\
                              &amp;= \sum_{a}\pi(a|s)R_s^a + \gamma\sum_{s'}\sum_{a}\pi(a|s)P_{ss'}^av_\pi(s') \\
                              &amp;= \sum_{a}\pi(a|s)R_s^a + \gamma\sum_{s'}\big(\sum_{a}\pi(a|s)P_{ss'}^a\big)v_\pi(s') \\
-                             &amp;= R_s^\pi + \gamma\sum_{s'}P_{ss'}^\pi v_\pi(s')\end{align}$$
-      Therefore, the matrix form is $v_\pi=R^\pi + \gamma P^\pi v_\pi$.</p>
+                             &amp;= R_s^\pi + \gamma\sum_{s'}P_{ss'}^\pi v_\pi(s')\end{align}$$<br/>
+      <p>Therefore, the matrix form is $v_\pi=R^\pi + \gamma P^\pi v_\pi$.</p>
 
       <h3 id="How-to-compute-the-optimal-policy?">How to compute the optimal policy?</h3><p>In order to compute the optimal policy, we need a <strong>criterion</strong> which allows us to rank the policies.
       Therefore, we can use the state-value (and action-value) function(s).</p>
@@ -253,14 +250,14 @@ MathJax.Hub.Config({
       <p>Proof hints: define Bellman Optimality Equation $\tilde{v}(s)=\max_a R_s^a + \gamma\sum_{s'}P_{ss'}^a\tilde{v}(s')$. Show that this operator is a contraction mapping, then you can use the Banach fixed-point theorem and state that the solution is unique $\tilde{v}(s)$. Now, by using Theorem 6.2.2 in <a href="https://www.wiley.com/en-us/Markov+Decision+Processes%3A+Discrete+Stochastic+Dynamic+Programming-p-9781118625873">Puterman</a>, you can prove that $\tilde{v}^*(s)=v^*(s)$.</p>
 
       <h4 id="Bellman-Optimality-Equations">Bellman Optimality Equations</h4>
-      <p>Therefore, we have the <strong>Bellman Optimality Equation</strong> for <strong>the state-value function</strong>
+      <p>Therefore, we have the <strong>Bellman Optimality Equation</strong> for <strong>the state-value function</strong></p>
       $$v^*(s)=\max_a R_s^a + \gamma\sum_{s'}P_{ss'}^av^*(s')$$
-      and note that
-      $$q^*(a,s)=\max_\pi q_\pi(a,s)=R_s^a + \gamma\sum_{s'}P_{ss'}^a\max_a v_\pi(s')=R_s^a + \gamma\sum_{s'}P_{ss'}^av^*(s')$$
-      Therefore, substituting this last equation into the Bellman Optimality Equation, we get
-      $$v^*(s)=\max_a q^*(a,s)$$
-      Finally, we obtain the <strong>Bellman Optimality Equation</strong> for <strong>the action-value function</strong>
-      $$q^*(a,s)=R_s^a + \gamma\sum_{s'}P_{ss'}^a\max_{a'} q^*(a',s')$$</p>
+      <p>and note that</p>
+      $$q^*(a,s)=\max_\pi q_\pi(a,s)=R_s^a + \gamma\sum_{s'}P_{ss'}^a\max_a v_\pi(s')=R_s^a + \gamma\sum_{s'}P_{ss'}^av^*(s')$$<br/>
+      <p>Therefore, substituting this last equation into the Bellman Optimality Equation, we get</p>
+      $$v^*(s)=\max_a q^*(a,s)$$<br/>
+      <p>Finally, we obtain the <strong>Bellman Optimality Equation</strong> for <strong>the action-value function</strong></p>
+      $$q^*(a,s)=R_s^a + \gamma\sum_{s'}P_{ss'}^a\max_{a'} q^*(a',s')$$
 
       <h3 id="How-to-solve-the-Bellman-equation?">How to solve the Bellman equation?</h3><ol>
       <li>The Bellman Optimality equation is non-linear and it is therefore difficult to compute a closed-form solution.</li>
