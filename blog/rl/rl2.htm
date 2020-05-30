@@ -246,8 +246,8 @@ MathJax.Hub.Config({
       <p>Therefore, the optimal policy is the one such that $\pi^*=arg\max_\pi v_\pi(s)$ for all $s$.</p>
 
       <h4 id="Does-the-optimal-policy-exist?">Does the optimal policy exist?</h4>
-      <p><a href="https://www.wiley.com/en-us/Markov+Decision+Processes%3A+Discrete+Stochastic+Dynamic+Programming-p-9781118625873">Puterman</a>. There exists at least an optimal policy. And the optimal policy/ies achieve same values of the solution/s of the Bellman Optimal Equations.</p>
-      <p>Proof hints: define Bellman Optimality Equation $\tilde{v}(s)=\max_a R_s^a + \gamma\sum_{s'}P_{ss'}^a\tilde{v}(s')$. Show that this operator is a contraction mapping, then you can use the Banach fixed-point theorem and state that the solution is unique $\tilde{v}(s)$. Now, by using Theorem 6.2.2 in <a href="https://www.wiley.com/en-us/Markov+Decision+Processes%3A+Discrete+Stochastic+Dynamic+Programming-p-9781118625873">Puterman</a>, you can prove that $\tilde{v}^*(s)=v^*(s)$.</p>
+      <p><a href="https://www.wiley.com/en-us/Markov+Decision+Processes%3A+Discrete+Stochastic+Dynamic+Programming-p-9781118625873">Puterman</a>. There exists at least an optimal policy. And the optimal policy/ies achieve same values of the solution/s of the Bellman Optimal Equations.
+      <br>Proof hints: define Bellman Optimality Equation $\tilde{v}(s)=\max_a R_s^a + \gamma\sum_{s'}P_{ss'}^a\tilde{v}(s')$. Show that this operator is a contraction mapping, then you can use the Banach fixed-point theorem and state that the solution is unique $\tilde{v}(s)$. Now, by using Theorem 6.2.2 in <a href="https://www.wiley.com/en-us/Markov+Decision+Processes%3A+Discrete+Stochastic+Dynamic+Programming-p-9781118625873">Puterman</a>, you can prove that $\tilde{v}^*(s)=v^*(s)$.</p>
 
       <h4 id="Bellman-Optimality-Equations">Bellman Optimality Equations</h4>
       <p>Therefore, we have the <strong>Bellman Optimality Equation</strong> for <strong>the state-value function</strong></p>
