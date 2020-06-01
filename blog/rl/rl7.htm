@@ -299,6 +299,7 @@ MathJax.Hub.Config({
       <p>This result is valid for any baseline function. Let's choose $B(s)=v_{\pi_\theta}(s)$. The result of the theorem follows in straightforward way. <strong>QED</strong><br/>
       <br>Note that $q_{\pi_\theta}(a,s)-v_{\pi_\theta}(s)$ is usually called the <strong>advantage function</strong> (as it measures what is the contribution of action a with respect to the expected value).</p>
       
+      
       <h2 id="Estimate-1:--Monte-Carlo-Policy-Gradient-with-Baseline">Estimate 1:  Monte Carlo Policy Gradient with Baseline</h2>
       $$\begin{align}
           \nabla_\theta J(\theta) &amp;\propto E\big\{\big(q_{\pi_\theta}(A,S)-v_{\pi_\theta}(S)\big)\nabla_\theta\ln\big(\pi(A|S,\theta)\big)\big\} \\
