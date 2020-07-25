@@ -72,13 +72,6 @@
 <!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://emsansone.github.io/img/logo-144x144.png">
 
-<style>
-  table, th, td {
-    border: 1px solid grey;
-    border-collapse: collapse;
-  }
-</style>
-
 </head>
 
 <!-- Load mathjax -->
@@ -97,14 +90,12 @@ MathJax.Hub.Config({
     displayAlign: 'center',
     "HTML-CSS": {
         styles: {'.MathJax_Display': {"margin": 0}},
-        linebreaks: { automatic: true }
+        linebreaks: { automatic: false }
     }
 });
 </script>
 
 <body class="page">
-
-<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
 
 <div class="navigation-wrapper">
 	<div class="site-name">
@@ -113,7 +104,9 @@ MathJax.Hub.Config({
     <div class="top-navigation">
         <nav role="navigation" id="site-nav" class="nav">
 		    <ul>
-					    <li><a href="https://emsansone.github.io/blog/rl/rl1.htm" >Start</a></li>
+              <li><a href="https://emsansone.github.io/blog/atp/atp0.htm">Index</a></li>	        					    
+					    <li><a href="https://emsansone.github.io/blog/atp/atp1.htm" >Previous Lecture</a></li>
+					    <li><a href="https://emsansone.github.io/blog/atp/atp3.htm" >Next Lecture</a></li>
 
 		    </ul>
 		</nav>
@@ -144,28 +137,80 @@ MathJax.Hub.Config({
 
     <div class="article-wrap" style="width:140%;text-align:justify;">
     
-      <h1 id="Reinforcement">Notes on Reinforcement Learning</h1>
-      <p>These notes are based on <a href="https://www.davidsilver.uk/teaching/">the course of David Silver</a> and are integrated with
-        information from <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">the book of Sutton and Barto</a> 
-        and papers available in the literature. The aim is to provide a synthetic overview of the field of reinforcement learning, guiding 
-        the reader through its theory. The notes are still at its initial stage and will be possibly improved in the future, for example by summarizing
-        the technical details of recent published works in reinforcement learning. I would appreciate any comment to improve the current version.</p><br/>
+      <h2 id="Proving-Conjectures-in-Propositional-Logic-(SAT)">Proving Conjectures in Propositional Logic (SAT)</h2>
+      <p>Propositional logic corresponds to the satisfiability problem (SAT). It is known to be NP-complete.
+        Only, the special case of 2-SAT is polynomial solvable (by converting the problem to computing the strongly connected components).<br/><br/>
+        <strong>Ingredients</strong></p>
+        <ul>
+        <li>The basic unit of propositional logic is the <strong>proposition</strong>, which may be either true or false.</li>
+        <li>A set of operators, viz. conjunction $\land$, disjunction $\lor$ and negation $\neg$ (equivalence and implication are derived from these ones).</li>
+        </ul>
+        <p>An example of implication, <em>If Jack knows Julie, Julie knows Jack</em>.<br/><br/>
+        <strong>PROPOSITIONAL LOGIC IS DECIDABLE</strong>. <strong>Proof</strong>. For any statement you can use a truth table!<br/><br/>
+        Let's find a more efficient method than computing truth tables.<br/><br/>
+        <strong>Definitions</strong></p>
+        <ul>
+        <li>A proposition $l$ is also called a <strong>literal</strong>.</li>
+        <li>A <strong>clause</strong> $C$ is a disjunction of literals $l_1\lor l_2\lor\dots\lor l_n$ or equivalently a set of literals $\{l_1,l_2,\dots,l_n\}$.</li>
+        <li>A <strong>clausal form</strong> (expressed in conjuctive normal form, CNF) $\Sigma$ is a conjuction of clauses $C_1\land\dots\land C_c$ or equivalently a set of clauses (a set of sets) $\{C_1,\dots,C_c\}$.</li>
+        <li>Given a clausal form $\Sigma$, a <strong>refutation</strong> is the derivation of a contradiction $\perp$, namely $\Sigma\vdash\perp$.  </li>
+        </ul>
+        <p>Now we want to define an inference rule which is used for <strong>refutation of clauses</strong>. Consider two clauses $C_1=\{l,a,\dots\}$ and $C_1=\{\neg l,b,\dots\}$. These two clauses are said to <strong>clash</strong>.
+        Therefore, we can define the <strong>resolvent</strong> of the two clashing clauses as $C=C_1\setminus\{l\}\cup C_2\setminus\{\neg l\}$</p>
+        <blockquote><p><strong>Resolution</strong>. Given a clausal form $\Sigma$, resolution takes two clashing clauses $C_1,C_2$ computes the resolvent $C$ and add it to the clausal form. We can easily prove that $\{C_1,C_2,C\}$ preserves the truth of $\Sigma$.</p>
+        </blockquote>
+        <p>Note that resolution allows to derive a contradiction, in fact if $C_1=\{a\}$ and $C_2=\{\neg a\}$, then the resolvent is $C=\{\perp\}$.<br/><br/>
+        <strong>Theorem</strong>. Resolution is <strong>sound and complete for refutation</strong>. In fact, if resolution derives a contradiction, then the statement logically entails a contradiction $\Sigma\vdash\perp\implies\Sigma\models\perp$ (soundness) and if a statement is contradictory, resolution admits a refutation (completeness) $\Sigma\models\perp\implies\Sigma\vdash\perp$.<br/>
+        <strong>Proof of soundness</strong>. Trivially obtained by the fact that resolution preserves the truth of clauses.<br/><br/>
+        It is important to mention that in this case there is a finite number of possible resolution steps, <strong>which is bounded above by the number of possible combinations of literals</strong> (as there is a limit on the possible number of clauses that can be added). <strong>Therefore, resolution is guaranteed to find a contradiction if the statement is unsatisfiable. Furthermore, if no contradiction is found, the statement is satisfiable</strong>.<br/><br/>
+        
+        <strong>RESOLUTION REFUTATION IS A METHOD TO DECIDE ABOUT SATISFIABILITY IN PROPOSITIONAL LOGIC AND IS IN GENERAL MORE EFFICIENT THAN COMPUTING TRUTH TABLES</strong>.<br/><br/>
+        <strong>Example</strong><br/><br/>
+        
+        <div style="overflow: auto"><span class="math display">\[\begin{array}{ll}
+          1. \{\neg p,\neg q, r\} &amp; \\
+          2. \{p, r\} &amp; \\
+          3. \{q,r\} &amp; \\
+          4. \{\neg r\} &amp; \\
+          &amp; \\
+          &amp; \\
+          &amp; \\
+      \end{array}
+      \quad\rightarrow\quad
+      \begin{array}{ll}
+          1. \{\neg p,\neg q, r\} &amp; \\
+          2. \{p, r\} &amp; \\
+          3. \{q,r\} &amp; \\
+          4. \{\neg r\} &amp; \\
+          5. \{\neg q, r\} &amp; \text{resolve 1,2} \\
+          &amp; \\
+          &amp; \\
+      \end{array}
+      \quad\rightarrow\quad
+      \begin{array}{ll}
+          1. \{\neg p,\neg q, r\} &amp; \\
+          2. \{p, r\} &amp; \\
+          3. \{q,r\} &amp; \\
+          4. \{\neg r\} &amp; \\
+          5. \{\neg q, r\} &amp; \text{resolve 1,2} \\
+          6. \{r\} &amp; \text{resolve 3,5} \\
+          &amp; \\
+      \end{array}
+      \quad\rightarrow\quad
+      \begin{array}{ll}
+          1. \{\neg p,\neg q, r\} &amp; \\
+          2. \{p, r\} &amp; \\
+          3. \{q,r\} &amp; \\
+          4. \{\neg r\} &amp; \\
+          5. \{\neg q, r\} &amp; \text{resolve 1,2} \\
+          6. \{r\} &amp; \text{resolve 3,5} \\  
+          7. \perp &amp; \text{resolve 4,6}
+      \end{array}
+      \]</span></div></p><br/>
 
-      <p>The content is organized as follows:
-        <ol>
-          <li><a href="https://emsansone.github.io/blog/rl/rl1.htm">Introduction to Reinforcement Learning</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl2.htm">Modelling the Environment: Markov Process, Markov Reward Process, Markov Decision Process</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl3.htm">Modelling the Agent with Known Environment: Planning by Dynamic Programming</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl4.htm">Modelling the Agent with Unknown Environment: Model-Free Prediction</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl5.htm">Modelling the Agent with Unknown Environment: Model-Free Control</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl6.htm">Scaling to Large State Spaces: Value Function Approximation</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl7.htm">Scaling to Large Action Spaces: Policy Gradient</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl8.htm">Improving the Sample Efficiency of Reinforcement Learning: Model-Based RL</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl9.htm">Exploration and Exploitation Dilemma</a></li>
-        </ol>
-      </p>
-
-      
+      <p><strong>Problems</strong><br/><br/>
+      Note also that (i) resolution <strong>increases</strong> the set of clauses and (ii) it <strong>can increase</strong> the number of literals in the clauses. This creates problems of <strong>inefficiency</strong> when trying to detect <strong>unsatisfiable statements</strong>. <strong>Smarter selection of clauses can improve the convergence to refutation</strong>. Nevertheless, <strong>if a statement is satisfiable, you need to check ALL POSSIBLE RESOLUTION STEPS</strong>.</p>
+              
     </div><!-- /.article-wrap -->
 
     <div id="disqus_thread" style="width:140%;text-align:justify;margin-top:3cm;margin-bottom:2cm;"></div>

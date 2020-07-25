@@ -72,13 +72,6 @@
 <!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://emsansone.github.io/img/logo-144x144.png">
 
-<style>
-  table, th, td {
-    border: 1px solid grey;
-    border-collapse: collapse;
-  }
-</style>
-
 </head>
 
 <!-- Load mathjax -->
@@ -104,8 +97,6 @@ MathJax.Hub.Config({
 
 <body class="page">
 
-<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
-
 <div class="navigation-wrapper">
 	<div class="site-name">
 		<a href="https://emsansone.github.io/">Website</a>
@@ -113,7 +104,8 @@ MathJax.Hub.Config({
     <div class="top-navigation">
         <nav role="navigation" id="site-nav" class="nav">
 		    <ul>
-					    <li><a href="https://emsansone.github.io/blog/rl/rl1.htm" >Start</a></li>
+              <li><a href="https://emsansone.github.io/blog/atp/atp0.htm">Index</a></li>	        					    
+					    <li><a href="https://emsansone.github.io/blog/atp/atp2.htm" >Next Lecture</a></li>
 
 		    </ul>
 		</nav>
@@ -144,27 +136,32 @@ MathJax.Hub.Config({
 
     <div class="article-wrap" style="width:140%;text-align:justify;">
     
-      <h1 id="Reinforcement">Notes on Reinforcement Learning</h1>
-      <p>These notes are based on <a href="https://www.davidsilver.uk/teaching/">the course of David Silver</a> and are integrated with
-        information from <a href="https://mitpress.mit.edu/books/reinforcement-learning-second-edition">the book of Sutton and Barto</a> 
-        and papers available in the literature. The aim is to provide a synthetic overview of the field of reinforcement learning, guiding 
-        the reader through its theory. The notes are still at its initial stage and will be possibly improved in the future, for example by summarizing
-        the technical details of recent published works in reinforcement learning. I would appreciate any comment to improve the current version.</p><br/>
-
-      <p>The content is organized as follows:
-        <ol>
-          <li><a href="https://emsansone.github.io/blog/rl/rl1.htm">Introduction to Reinforcement Learning</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl2.htm">Modelling the Environment: Markov Process, Markov Reward Process, Markov Decision Process</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl3.htm">Modelling the Agent with Known Environment: Planning by Dynamic Programming</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl4.htm">Modelling the Agent with Unknown Environment: Model-Free Prediction</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl5.htm">Modelling the Agent with Unknown Environment: Model-Free Control</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl6.htm">Scaling to Large State Spaces: Value Function Approximation</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl7.htm">Scaling to Large Action Spaces: Policy Gradient</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl8.htm">Improving the Sample Efficiency of Reinforcement Learning: Model-Based RL</a></li>
-          <li><a href="https://emsansone.github.io/blog/rl/rl9.htm">Exploration and Exploitation Dilemma</a></li>
-        </ol>
-      </p>
-
+      <h1 id="Background-on-Logic-and-Automated-Reasoning">Introduction</h1>
+        <h2 id="Introduction">Preliminaries</h2>
+        <p>Logic is an approximation of natural language, which tries to capture the relation among symbols. Reasoning through logic consists of manipulating symbols without knowing their meaning. 
+        There are different form of reasoning:</p>
+        <ul>
+        <li>Deductive reasoning. Deriving conclusions based on the inference rules of logic.</li>
+        <li>Inductive reasoning. Deriving conclusions from observations.<ul>
+        <li>I have seen 1000 black cars</li>
+        <li>I have never seen one white car</li>
+        <li>Therefore, all cars are black</li>
+        </ul>
+        </li>
+        <li>Abductive reasoning. Deriving causes from effects. We tend to conclude a cause even when we haven't enumerated all possible causes.</li>
+        <li>Reasoning by analogy. Deriving conclusions based on the similarity between objects.</li>
+        </ul>
+        <p>Nevertheless, deduction is the only form of reasoning which is guaranteed to derive conclusions valid in all cases.</p>
+        <h2 id="Definitions">Definitions</h2>
+        <blockquote><p><strong>Logical entailment</strong>. A set of premises $\Sigma$ <strong>logical entails</strong> a conclusion $\phi$ iff <strong>every truth assignment satisfying $\Sigma$ satisfies also $\phi$</strong>. To this purpose, we use the notation $\Sigma\models\phi$.<br/><br/>
+        <strong>Contradiction</strong>. We use the notation $\perp$.<br/><br/>
+        <strong>Proof</strong>. A conclusion $\phi$ is derived from a set of premises $\Sigma$ by a formal system $S$ iff <strong>there exists a sequence of steps following the inference rules defined by the logic using $S$, which transforms $\Sigma$ into $\phi$</strong>. We use the notation $\Sigma\vdash_S\phi$ or alternatively $\Sigma\vdash\phi$ (when it is clear which formal system we are using).<br/><br/>
+        <strong>Soundness</strong>. If a formal system $S$ can prove $\phi$ from $\Sigma$ and $\Sigma\models\phi$, then $S$ is <strong>sound with respect to logical entailment</strong>, namely $$\Sigma\vdash\phi\implies\Sigma\models\phi$$ 
+        Informally, a sound system ensures that if you find a set of steps deriving the conclusion from the premises, then you have the guarantee that the premises logically entail the conclusion.<br/><br/>
+        <strong>Completeness</strong>. If for every logical entailment there exists a proof from the formal system $S$, then $S$ is <strong>complete with respect to logical entailment</strong>, namely $$\Sigma\models\phi\implies\Sigma\vdash\phi$$
+        It is important to mention that completeness only ensures the existence of a proof. It doesn't say anything about how to find it.<br/><br/>
+        <strong>Decidability</strong>. A logical system is <strong>decidable</strong> iff there is a method which tells (in finite number of steps) whether or not arbitrary statements are theorems of the logical system.</p>
+        </blockquote>      
       
     </div><!-- /.article-wrap -->
 
